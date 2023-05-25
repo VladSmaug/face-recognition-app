@@ -2,8 +2,8 @@ import React from 'react';
 
 const Navigation = () => {
   return (
-    <nav>
-      <p className='text-lg text-blue-600'>Sign out</p>
+    <nav >
+      <div className='p-6 text-lg font-bold hover:text-red-500 hover:font-bold hover:underline hover:cursor-pointer text-right'>Sign out</div>
     </nav>
   );
 };
