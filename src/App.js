@@ -8,7 +8,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <ParticlesBg className="particles" type="color" bg={true} />
+      <ParticlesBg className="particles" type="cobweb" bg={true} />
       <Navigation />
       <Logo />
       <Rank />
