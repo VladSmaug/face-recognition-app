@@ -9,13 +9,16 @@ import './App.css';
 function App() {
   const [input, setInput] = useState("");
 
-// URL of image to use. Change this to your image.
-const IMAGE_URL = 'https://samples.clarifai.com/metro-north.jpg';
+
+
+const returnClarifaiRequestOptions =(imageUrl) =>{
+
+const IMAGE_URL = imageUrl;
 
 const raw = JSON.stringify({
   "user_app_id": {
-    "user_id": "clarifai",
-    "app_id": "main"
+    "user_id": "8apfo8pwzvgc",
+    "app_id": "face-recognition-app"
   },
   "inputs": [
       {
@@ -27,25 +30,19 @@ const raw = JSON.stringify({
       }
   ]
 });
-
 const requestOptions = {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Key ' + '242ff36100b7444996387ad0099f1727'
-    },
-    body: raw
+  method: 'POST',
+  headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Key ' + '242ff36100b7444996387ad0099f1727'
+  },
+  body: raw
 };
+return requestOptions;
+} 
 
-// NOTE: MODEL_VERSION_ID is optional, you can also call prediction with the MODEL_ID only
-// https://api.clarifai.com/v2/models/{YOUR_MODEL_ID}/outputs
-// this will default to the latest version_id
+// URL of image to use. Change this to your image.
 
-fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-  
 
   const onInputChange = (e) => {
     setInput(e.target.value);
@@ -53,6 +50,12 @@ fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c
   };
 
   const onSubmitButton = () => {
+    setInput({imageUrl: input})
+    fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, returnClarifaiRequestOptions())
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+  
     console.log("Click");
   };
 
