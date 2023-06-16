@@ -3,13 +3,12 @@ import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import ParticlesBg from 'particles-bg';
 import './App.css';
 
 function App() {
   const [input, setInput] = useState("");
-
-
 
 const returnClarifaiRequestOptions =(imageUrl) =>{
 
@@ -51,7 +50,7 @@ return requestOptions;
 
   const onSubmitButton = () => {
     setInput({imageUrl: input})
-    fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, returnClarifaiRequestOptions())
+    fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, returnClarifaiRequestOptions('https://upload.wikimedia.org/wikipedia/ru/thumb/3/3c/Chris_Hemsworth_as_Thor.jpg/280px-Chris_Hemsworth_as_Thor.jpg'))
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
@@ -69,7 +68,7 @@ return requestOptions;
         onInputChange={onInputChange}
         onSubmitButton={onSubmitButton}
       />
-      {/* <FaceRecognition />  */}
+      <FaceRecognition />
     </div>
   );
 }
