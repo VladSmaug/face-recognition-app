@@ -9,6 +9,7 @@ import './App.css';
 
 function App() {
   const [input, setInput] = useState("");
+  const [imageUrl, setImageUrl] = useState(""); 
 
 const returnClarifaiRequestOptions =(imageUrl) =>{
 
@@ -41,16 +42,13 @@ return requestOptions;
 } 
 
 // URL of image to use. Change this to your image.
-
-
   const onInputChange = (e) => {
     setInput(e.target.value);
-    console.log(e.target.value);
   };
 
   const onSubmitButton = () => {
-    setInput({imageUrl: input})
-    fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, returnClarifaiRequestOptions('https://upload.wikimedia.org/wikipedia/ru/thumb/3/3c/Chris_Hemsworth_as_Thor.jpg/280px-Chris_Hemsworth_as_Thor.jpg'))
+    setImageUrl(input);
+    fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, returnClarifaiRequestOptions(input))
     .then(response => response.text())
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
@@ -68,7 +66,7 @@ return requestOptions;
         onInputChange={onInputChange}
         onSubmitButton={onSubmitButton}
       />
-      <FaceRecognition />
+      <FaceRecognition imageUrl={imageUrl}/>
     </div>
   );
 }
