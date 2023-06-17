@@ -5,7 +5,7 @@
 
 body{
   font-family: "Courier New", Courier, monospace;
-  height: 100vh;
+  height: auto;
   background: radial-gradient(circle at -4.17% 4.55%, #ff9178 0, #ff867f 7.14%, #ff7b88 14.29%, #ff6f90 21.43%, #ff6299 28.57%, #ff55a2 35.71%, #ff48ab 42.86%, #f23cb5 50%, #df34bf 57.14%, #c933ca 64.29%, #af37d5 71.43%, #8f3fe0 78.57%, #6447ea 85.71%, #0050f3 92.86%, #0057fa 100%);;
 }
 button{

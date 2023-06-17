@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {Component, useState } from "react";
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -10,7 +10,24 @@ import './App.css';
 function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState(""); 
+  const [box, setBox] = useState("")
 
+
+const calculateFaceLocation =(data)=>{
+  const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
+  const image = document.getElementById('inputImage')
+  const width = Number(image.width);
+  const height = Number(image.height)
+  return {
+    leftCol: clarifaiFace.left_col * width,
+    topRow: clarifaiFace.top_row * height,
+    rightCol: width - (clarifaiFace.right_col * width),
+    bottomRow: height - (clarifaiFace.bottom_row * height)
+  }
+}  
+const displayFaceBox = (box) => {
+  setBox(box);
+}
 const returnClarifaiRequestOptions =(imageUrl) =>{
 
 const IMAGE_URL = imageUrl;
@@ -50,7 +67,7 @@ return requestOptions;
     setImageUrl(input);
     fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, returnClarifaiRequestOptions(input))
     .then(response => response.json())
-    .then(result => console.log(result.outputs[0].data.regions[0].region_info.bounding_box))
+    .then(result => displayFaceBox(calculateFaceLocation(result)))
     .catch(error => console.log('error', error));
   
     console.log("Click");
@@ -58,7 +75,7 @@ return requestOptions;
 
   return (
     <div className="App">
-      <ParticlesBg className="particles" type="cobweb" bg={true} />
+      <ParticlesBg type="cobweb" bg={true} />
       <Navigation />
       <Logo />
       <Rank />
@@ -66,8 +83,10 @@ return requestOptions;
         onInputChange={onInputChange}
         onSubmitButton={onSubmitButton}
       />
-      <FaceRecognition imageUrl={imageUrl}/>
+      <FaceRecognition box={box} imageUrl={imageUrl}/> 
+      
     </div>
+    
   );
 }
 
