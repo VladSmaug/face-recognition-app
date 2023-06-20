@@ -7,7 +7,7 @@ const ImageLinkForm = ({onInputChange, onSubmitButton}) => {
     return  (
     <div>
         <p className="text-xl m-10">
-            {"Something weird will happen here if you download your picture here"}
+            {"Download your image URL to detect faces there"}
         </p>
         <div className="center">
         <div className="p-4 rounded shadow-md center gradient">
